@@ -2,9 +2,10 @@ package com.russell.curso.springboot.webapp.springboot_web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.russell.curso.springboot.webapp.springboot_web.models.User;
 
 
 /**
@@ -29,12 +30,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
     // http://localhost:8080/details
-    @GetMapping("/details")
+    // @GetMapping("/details")
     @RequestMapping(path="/details", method = RequestMethod.GET)
     public String details(Model model) {
+        User user = new User("Russell", "Tito");
         model.addAttribute("title", "User Details");
-        model.addAttribute("name", "Russell");
-        model.addAttribute("lastname", "Mendoza");
+        // model.addAttribute("name", "Russell");
+        // model.addAttribute("lastname", "Mendoza");
+        model.addAttribute("user", user);
         return "details"; 
     }
 

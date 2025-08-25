@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.russell.curso.springboot.webapp.springboot_web.models.User;
+import com.russell.curso.springboot.webapp.springboot_web.models.dto.UserDto;
 
 /*documentation
     * UserControllerRest is a Spring REST controller that handles HTTP requests related to user details.
@@ -31,9 +32,18 @@ import com.russell.curso.springboot.webapp.springboot_web.models.User;
 @RestController
 @RequestMapping("/api") // Base path for all endpoints in this controller
 public class UserControllerRest {
+
     // http://localhost:8080/api/details
     @GetMapping("/details")
-    public Map<String, Object> details() {
+    public UserDto detailsDto() {
+        User user = new User("Russell", "Mendozaa");
+        UserDto userDto = new UserDto("User Details", user);
+        return userDto;
+    }
+
+    // http://localhost:8080/api/details
+    @GetMapping("/details-map")
+    public Map<String, Object> detailsMap() {
         Map<String, Object> body = new HashMap<>();
         User user = new User("Russell", "Mendoza");
         body.put("title", "User Details");

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /*documentation
@@ -26,8 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping("/api") // Base path for all endpoints in this controller
 public class UserControllerRest {
-    @GetMapping("/details2")
+    // http://localhost:8080/api/details
+    @GetMapping("/details")
     public Map<String, Object> details() {
         Map<String, Object> body = new HashMap<>();
         body.put("title", "User Details");

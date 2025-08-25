@@ -3,10 +3,13 @@ package com.russell.curso.springboot.webapp.springboot_web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 /**
  * UserController is a Spring MVC controller that handles HTTP requests related to user details.
+ * El controlador interactua con los datos y la vista.
  * 
  * <p>
  * The class is annotated with {@link org.springframework.stereotype.Controller}, which marks it as a web controller
@@ -25,8 +28,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class UserController {
-    
+    // http://localhost:8080/details
     @GetMapping("/details")
+    @RequestMapping(path="/details", method = RequestMethod.GET)
     public String details(Model model) {
         model.addAttribute("title", "User Details");
         model.addAttribute("name", "Russell");

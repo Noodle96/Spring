@@ -11,7 +11,7 @@
     <h1 th:text="${title}"></h1>
     <div th:if="${users.size() == 0}" th:text="${'No hay users'}"></div>
 
-    <table>
+    <table th:if="${users.size() != 0}">
         <thead>
             <tr>
                 <th>name</th>
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <t body>
-            <tr th:each="user: ${users}">
+            <tr th:each=" user: ${users}">
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.lastname}"></td>
                 <td th:if="${user.email != null}" th:text="${user.email}"></td>

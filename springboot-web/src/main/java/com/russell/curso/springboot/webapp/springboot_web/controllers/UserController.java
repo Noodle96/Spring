@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -53,14 +54,21 @@ public class UserController {
 
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String list(ModelMap model) {
+
+        model.addAttribute("title", "Listado de Usuarios");
+        // model.addAttribute("users", users);
+        return "list";
+    }
+
+    // ModelAttribute se ejecuta antes de cada request mapping
+    // users sera el nombre con el que se accede en la vista
+    @ModelAttribute("users") // {users}: Nombre que se usara en la vista de cualquier request mapping
+    public List<User> usersModel() {
         List<User> users = new ArrayList<>();
         users.add(new User("Russell", "Mendoza"));
         users.add(new User("John", "Doe", "john.doe@example.com"));
         users.add(new User("Jane", "Smith", "jane.smith@example.com"));
         users.add(new User("Alice", "Johnson"));
-
-        model.addAttribute("title", "Listado de Usuarios");
-        model.addAttribute("users", users);
-        return "list";
+        return users;
     }
 }

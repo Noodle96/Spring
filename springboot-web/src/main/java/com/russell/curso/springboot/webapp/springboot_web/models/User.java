@@ -3,14 +3,15 @@ package com.russell.curso.springboot.webapp.springboot_web.models;
 public class User {
     private String name;
     private String lastname;
-    
+
     public User(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
     }
 
     public String getName() {
-        return name+"_TEST";
+        // return name+"_TEST";
+        return name;
     }
 
     public void setName(String name) {
@@ -18,11 +19,12 @@ public class User {
     }
 
     public String getLastname() {
-        return lastname+"_TEST";
+        // return lastname+"_TEST";
+        return lastname;
     }
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    
+
 }

@@ -1,10 +1,13 @@
 package com.russell.curso.springboot.webapp.springboot_web.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.russell.curso.springboot.webapp.springboot_web.models.User;
@@ -27,7 +30,7 @@ import com.russell.curso.springboot.webapp.springboot_web.models.dto.UserDto;
     * The method returns a {@link java.util.Map} containing user-related attributes ("title", "name", "lastname"),
     * which will be automatically converted to JSON format and sent in the HTTP response body.
  * </p>
-*/  
+*/
 
 @RestController
 @RequestMapping("/api") // Base path for all endpoints in this controller
@@ -41,7 +44,7 @@ public class UserControllerRest {
         return userDto;
     }
 
-    // http://localhost:8080/api/details
+    // http://localhost:8080/api/details-map
     @GetMapping("/details-map")
     public Map<String, Object> detailsMap() {
         Map<String, Object> body = new HashMap<>();
@@ -51,5 +54,18 @@ public class UserControllerRest {
         // body.put("lastname", "Mendoza");
         body.put("user", user);
         return body;
+    }
+
+    // http://localhost:8080/api/list
+    @RequestMapping(path = "/list", method = RequestMethod.GET)
+    public List<User> list() {
+        User user1 = new User("Russell", "Mendoza");
+        User user2 = new User("John", "Doe");
+        User user3 = new User("Jane", "Smith");
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        return users;
     }
 }

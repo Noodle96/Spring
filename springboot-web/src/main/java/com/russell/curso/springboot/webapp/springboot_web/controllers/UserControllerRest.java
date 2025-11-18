@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.russell.curso.springboot.webapp.springboot_web.models.User;
 import com.russell.curso.springboot.webapp.springboot_web.models.dto.MedicineDto;
 import com.russell.curso.springboot.webapp.springboot_web.models.dto.UserDto;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 /*documentation
@@ -93,4 +97,27 @@ public class UserControllerRest {
         medicineDto.setPrice(price);
         return medicineDto;
     }
+
+    // Recibiremos parametros usando HTTP request
+    // localhost:8080/api/params-request?name=Aspirin&manufacturer=Bayer&price=9.99
+    @RequestMapping(path = "/params-request", method = RequestMethod.GET)
+    public MedicineDto request(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        String manufacturer = request.getParameter("manufacturer");
+        String priceParam = request.getParameter("price");
+        Double price = null;
+        if (priceParam != null) {
+            try {
+                price = Double.parseDouble(priceParam);
+            } catch (NumberFormatException e) {
+                // Manejar el error de parseo si es necesario
+            }
+        }
+        MedicineDto medicineDto = new MedicineDto();
+        medicineDto.setName(name);
+        medicineDto.setManufacturer(manufacturer);
+        medicineDto.setPrice(price);
+        return medicineDto;
+    }
+
 }

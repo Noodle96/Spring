@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.russell.curso.springboot.webapp.springboot_web.models.User;
+import com.russell.curso.springboot.webapp.springboot_web.models.dto.MedicineDto;
 import com.russell.curso.springboot.webapp.springboot_web.models.dto.UserDto;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*documentation
     * UserControllerRest is a Spring REST controller that handles HTTP requests related to user details.
@@ -67,5 +69,28 @@ public class UserControllerRest {
         users.add(user2);
         users.add(user3);
         return users;
+    }
+
+    // Usaremos @RequestParam para recibir parametros por la URL
+    // localhost:8080/api/params?medicineName=Aspirin
+    @RequestMapping(path = "/params", method = RequestMethod.GET)
+    public MedicineDto requestMethodName(@RequestParam(required = false) String medicineName) {
+        MedicineDto medicineDto = new MedicineDto();
+        medicineDto.setName(medicineName);
+        return medicineDto;
+    }
+
+    // Usaremos @RequestMapping para recibir parametros por la URL
+    // localhost:8080/api/params-medicine?name=Aspirin&manufacturer=Bayer&price=9.99
+    // Solo pasar datos primitivos por la URL como String, int, double, boolean
+    @RequestMapping(path = "/params-medicine", method = RequestMethod.GET)
+    public MedicineDto requestMethodMedicine(@RequestParam(required = false) String name,
+            @RequestParam(required = false) String manufacturer,
+            @RequestParam(required = false) Double price) {
+        MedicineDto medicineDto = new MedicineDto();
+        medicineDto.setName(name);
+        medicineDto.setManufacturer(manufacturer);
+        medicineDto.setPrice(price);
+        return medicineDto;
     }
 }

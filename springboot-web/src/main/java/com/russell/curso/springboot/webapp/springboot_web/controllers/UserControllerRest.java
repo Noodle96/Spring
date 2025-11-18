@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.russell.curso.springboot.webapp.springboot_web.models.User;
+import com.russell.curso.springboot.webapp.springboot_web.models.dto.CardDto;
 import com.russell.curso.springboot.webapp.springboot_web.models.dto.MedicineDto;
 import com.russell.curso.springboot.webapp.springboot_web.models.dto.UserDto;
 
@@ -118,6 +119,32 @@ public class UserControllerRest {
         medicineDto.setManufacturer(manufacturer);
         medicineDto.setPrice(price);
         return medicineDto;
+    }
+
+    // Recibiremos parametros usando PathVariable
+    // localhost:8080/api/path-variable/Princesa
+    @RequestMapping(path = "path-variable/{name}", method = RequestMethod.GET)
+    public CardDto requestPathVariable(@PathVariable String name) {
+        CardDto cardDto = new CardDto();
+        cardDto.setName(name);
+        return cardDto;
+    }
+
+    // Recibiremos multiples parametros usando PathVariable
+    // localhost:8080/api/multiple-path-variables/Princesa/Legendaria/3/150.5/true
+    @RequestMapping(path = "/multiple-path-variables/{name}/{type}/{elixir}/{damageTower}/{isOld}", method = RequestMethod.GET)
+    public CardDto requestMultiPathVariable(@PathVariable String name,
+            @PathVariable String type,
+            @PathVariable Integer elixir,
+            @PathVariable Double damageTower,
+            @PathVariable Boolean isOld) {
+        CardDto cardDto = new CardDto();
+        cardDto.setName(name);
+        cardDto.setType(type);
+        cardDto.setElixir(elixir);
+        cardDto.setDamageTower(damageTower);
+        cardDto.setIsOld(isOld);
+        return cardDto;
     }
 
 }

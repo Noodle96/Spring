@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api") // Base path for all endpoints in this controller
 public class UserControllerRest {
+
+    @Value("${me.card.name}")
+    private String name;
+
+    @Value("${me.card.type}")
+    private String type;
+
+    @Value("${me.card.elixir}")
+    private Integer elixir;
+
+    // @Value("${me.card.damageTower}")
+    // private Double damageTower;
+
+    @Value("${me.card.isOld}")
+    private Boolean isOld;
+
+    @Value("${me.card.counter}")
+    private String[] counter;
 
     // http://localhost:8080/api/details
     @GetMapping("/details")
@@ -154,6 +173,20 @@ public class UserControllerRest {
     public User createUser(@RequestBody User user) {
         // Hacer algo con el usuario recibido, como guardarlo en la base de datos
         return user;
+    }
+
+    // Inyectar valores usando la anotacion @Value
+    // localhost:8080/api/default-values
+    @RequestMapping(path = "/default-values", method = RequestMethod.GET)
+    public Map<String, Object> defaultValues(@Value("${me.card.damageTower}") Double damageTower) {
+        Map<String, Object> json = new HashMap<>();
+        json.put("name", name);
+        json.put("type", type);
+        json.put("elixir", elixir);
+        json.put("damageTower", damageTower);
+        json.put("isOld", isOld);
+        json.put("counter", counter);
+        return json;
     }
 
 }

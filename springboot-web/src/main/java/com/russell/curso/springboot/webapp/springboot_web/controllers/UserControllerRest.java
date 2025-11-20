@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -145,6 +146,14 @@ public class UserControllerRest {
         cardDto.setDamageTower(damageTower);
         cardDto.setIsOld(isOld);
         return cardDto;
+    }
+
+    // Uso de POST
+    // localhost:8080/api/create
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
+    public User createUser(@RequestBody User user) {
+        // Hacer algo con el usuario recibido, como guardarlo en la base de datos
+        return user;
     }
 
 }
